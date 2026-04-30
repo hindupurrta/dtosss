@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTOs Office - Hindupur</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #20c997;
+            --secondary-color: #4a5a66;
+            --background-color: #f0f8ff;
+            --card-background: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 900%;
+            max-width: 650px;
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            /* Added Flexbox to align image and text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Logo Styling */
+        .header-logo {
+            width: 60px; /* Adjust size as needed */
+            height: auto;
+        }
+
+        header h1 {
+            font-size: 1.2em;
+            margin: 0;
+            color: var(--secondary-color);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .styled-button {
+            display: block;
+            width: 100%;
+            padding: 16px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.15em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 10px rgba(32, 201, 151, 0.4);
+        }
+
+        .styled-button:hover {
+            background-color: #17a37b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(32, 201, 151, 0.5);
+        }
+
+        @media (min-width: 768px) {
+            .button-container {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .styled-button {
+                width: auto;
+                flex-grow: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="path-to-your-logo.png" alt="Office Logo" class="header-logo">
+        <h1>District Transport Officers Office </br>
+        SSSD, Hindupur</h1>
+    </header>
+
+    <div class="button-container">
+        <a href="https://script.google.com/macros/s/AKfycbzuPxQnFhbAmsADMjrluuJC1zqizt9FIu5TUoS3mgr6vY0ZrRCsPQEJ4Ntt-Lqwpg-i/exec/link1" target="_blank" class="styled-button">
+            AITV Buses Inspection
+        </a>
+        <a href="https://script.google.com/macros/s/AKfycbynzx4hyGs5Ag8B9PTM7crbY6sCuz4QqVEDjfZhXWNPE9SG3T9D-QvH0p2Gggn5jf9REg/exec/link2" target="_blank" class="styled-button">
+            EIBs Special Inspection
+        </a>
+    </div>
+
+</body>
+</html>
