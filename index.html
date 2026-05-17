@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DTOs Office - Hindupur</title>
     <style>
-        /* --- CSS STYLES --- */
         :root {
             --primary-color: #20c997;
             --secondary-color: #4a5a66;
@@ -14,19 +13,27 @@
             --text-color: #333333;
         }
 
-        body {
-            font-family: 'Arial', sans-serif;
+        body, html {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
+        }
+
+        /* Container for the landing page content */
+        .main-container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         header {
-            width: 900%;
+            width: 100%;
             max-width: 650px;
             text-align: center;
             margin-bottom: 40px;
@@ -34,16 +41,15 @@
             background-color: var(--card-background);
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            /* Added Flexbox to align image and text */
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
+            box-sizing: border-box;
         }
 
-        /* Logo Styling */
         .header-logo {
-            width: 60px; /* Adjust size as needed */
+            width: 60px;
             height: auto;
         }
 
@@ -76,6 +82,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 6px 10px rgba(32, 201, 151, 0.4);
+            box-sizing: border-box;
         }
 
         .styled-button:hover {
@@ -94,26 +101,85 @@
                 flex-grow: 1;
             }
         }
+
+        /* --- Full Screen Iframe Styling --- */
+        .full-screen-iframe-wrapper {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: white;
+        }
+
+        .full-screen-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Back Button to return to menu */
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            opacity: 0.7;
+            z-index: 10000;
+        }
+        .back-btn:hover { opacity: 1; }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="logo1.jpg" alt="Office Logo" class="header-logo">
-        <h1>District Transport Officers Office </br>
-        SSSD, Hindupur</h1>
-	<img src="logo2.jpg" alt="Office Logo" class="header-logo">
-    </header>
+    <div class="main-container" id="menu-view">
+        <header>
+            <img src="logo1.jpg" alt="Office Logo" class="header-logo">
+            <h1>District Transport Officers Office <br>
+            SSSD, Hindupur</h1>
+            <img src="logo2.jpg" alt="Office Logo" class="header-logo">
+        </header>
 
-    <div class="button-container">
-        <a href="https://script.google.com/macros/s/AKfycbzuPxQnFhbAmsADMjrluuJC1zqizt9FIu5TUoS3mgr6vY0ZrRCsPQEJ4Ntt-Lqwpg-i/exec" target="_blank" class="styled-button">
-            AITV Buses Inspection
-        </a>
+        <div class="button-container">
+            <a href="https://script.google.com/macros/s/AKfycbzuPxQnFhbAmsADMjrluuJC1zqizt9FIu5TUoS3mgr6vY0ZrRCsPQEJ4Ntt-Lqwpg-i/exec" class="styled-button" onclick="openFullWindow(event, this.href)">
+                AITV Buses Inspection
+            </a>
 
-        <a href="https://script.google.com/macros/s/AKfycbzNQwFLUtskZl2M_tyXoA34PWifvy2-51Z88eDUeW404c6k8vHOiUKU5OkFHLw6h4Xyyg/exec" target="_blank" class="styled-button btn-eib" style="background-color: #fd7e14; color: white;">
-            EIBs Special Inspection
-        </a>
+            <a href="https://script.google.com/macros/s/AKfycbzNQwFLUtskZl2M_tyXoA34PWifvy2-51Z88eDUeW404c6k8vHOiUKU5OkFHLw6h4Xyyg/exec" class="styled-button btn-eib" style="background-color: #fd7e14; color: white;" onclick="openFullWindow(event, this.href)">
+                EIBs Special Inspection
+            </a>
+        </div>
     </div>
+
+    <div class="full-screen-iframe-wrapper" id="iframe-view">
+        <a href="#" class="back-btn" onclick="closeFullWindow(event)">← Back to Menu</a>
+        <iframe id="target-frame" src="" title="Inspection Form"></iframe>
+    </div>
+
+    <script>
+        function openFullWindow(event, url) {
+            event.preventDefault(); // Stop the browser from navigating away
+            
+            document.getElementById('target-frame').src = url; // Set source to iframe
+            document.getElementById('menu-view').style.display = 'none'; // Hide buttons
+            document.getElementById('iframe-view').style.display = 'block'; // Show full screen frame
+        }
+
+        function closeFullWindow(event) {
+            event.preventDefault();
+            document.getElementById('target-frame').src = ''; // Clear frame
+            document.getElementById('iframe-view').style.display = 'none'; // Hide frame
+            document.getElementById('menu-view').style.display = 'flex'; // Show buttons again
+        }
+    </script>
 
 </body>
 </html>
