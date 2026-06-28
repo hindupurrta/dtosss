@@ -2,116 +2,342 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>DTOs Office - Hindupur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #20c997;
-            --secondary-color: #4a5a66;
-            --background-color: #f0f8ff;
-            --card-background: #ffffff;
-            --text-color: #333333;
+            --primary: #6366f1;
+            --accent: #06b6d4;
+            --secondary: #f97316;
+            --green: #10b981;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --glass-bg: rgba(255,255,255,0.06);
+            --glass-border: rgba(255,255,255,0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
-        body, html {
-            margin: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === MAIN APP === */
+        .app-wrapper {
+            padding: calc(12px + var(--safe-top)) 16px calc(80px + var(--safe-bottom)) 16px;
+            min-height: 100vh;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* === HEADER === */
+        .app-header {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.08);
+            padding: 4px;
+        }
+
+        .app-title { flex: 1; }
+
+        .app-title h1 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .app-title p {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 1px;
+        }
+
+        .header-badge {
+            background: linear-gradient(135deg, var(--green), #059669);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        /* === WELCOME BANNER === */
+        .welcome-banner {
+            margin: 8px 0 16px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.15));
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 80px; height: 80px;
+            background: rgba(99,102,241,0.15);
+            border-radius: 50%;
+        }
+
+        .banner-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.1);
+            padding: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+
+        .welcome-name {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        /* === SECTION TITLE === */
+        .section-title {
             padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Arial', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Container for the landing page content */
-        .main-container {
+        /* === SERVICE CARDS === */
+        .services-grid {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+            gap: 10px;
         }
 
-        header {
-            width: 100%;
-            max-width: 650px;
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background-color: var(--card-background);
+        .service-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.4s ease-out forwards;
+            opacity: 0;
+        }
+
+        .service-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        .service-card:active {
+            transform: scale(0.97);
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.05s; }
+        .service-card:nth-child(2) { animation-delay: 0.1s; }
+        .service-card:nth-child(3) { animation-delay: 0.15s; }
+
+        .service-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
             border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            box-sizing: border-box;
         }
 
-        .header-logo {
-            width: 60px;
-            height: auto;
+        .service-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
         }
 
-        header h1 {
-            font-size: 1.2em;
-            margin: 0;
-            color: var(--secondary-color);
+        .service-icon.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .service-icon.orange { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .service-icon.blue { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+        .service-info { flex: 1; min-width: 0; }
+
+        .service-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .button-container {
+        .service-desc {
+            font-size: 10px;
+            color: var(--text-secondary);
+            line-height: 1.3;
+        }
+
+        .service-arrow {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .service-card:hover .service-arrow {
+            background: rgba(99,102,241,0.2);
+        }
+
+        .service-arrow svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--text-secondary);
+            transition: fill 0.2s ease;
+        }
+
+        .service-card:hover .service-arrow svg {
+            fill: var(--primary);
+        }
+
+        /* === QUICK STATS === */
+        .stats-row {
+            padding: 16px 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px 6px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .stat-number {
+            font-size: 16px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 8px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        /* === BOTTOM NAV === */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: calc(56px + var(--safe-bottom));
+            padding-bottom: var(--safe-bottom);
+            background: rgba(15,23,42,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .nav-item {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .styled-button {
-            display: block;
-            width: 100%;
-            padding: 16px 25px;
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border: none;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 16px;
             border-radius: 10px;
-            font-size: 1.15em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 10px rgba(32, 201, 151, 0.4);
-            box-sizing: border-box;
+            transition: all 0.2s ease;
+            text-decoration: none;
         }
 
-        .styled-button:hover {
-            background-color: #17a37b;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(32, 201, 151, 0.5);
+        .nav-item.active { background: rgba(99,102,241,0.15); }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-secondary);
         }
 
-        @media (min-width: 768px) {
-            .button-container {
-                flex-direction: row;
-                justify-content: center;
-            }
-            .styled-button {
-                width: auto;
-                flex-grow: 1;
-            }
+        .nav-item.active svg { fill: var(--primary); }
+
+        .nav-label {
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--text-secondary);
         }
 
-        /* --- Full Screen Iframe Styling --- */
+        .nav-item.active .nav-label { color: var(--primary); }
+
+        /* === IFRAME VIEW === */
         .full-screen-iframe-wrapper {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 9999;
-            background: white;
+            background: var(--bg-dark);
         }
 
         .full-screen-iframe-wrapper iframe {
@@ -120,65 +346,466 @@
             border: none;
         }
 
-        /* Back Button to return to menu */
         .back-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #333;
+            bottom: calc(20px + var(--safe-bottom));
+            right: 16px;
+            background: rgba(15,23,42,0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 10px 16px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9em;
-            opacity: 0.7;
+            font-weight: 600;
+            font-size: 11px;
             z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
         }
-        .back-btn:hover { opacity: 1; }
+
+        .back-btn:hover {
+            background: rgba(30,41,59,0.95);
+            transform: translateY(-2px);
+        }
+
+        .back-btn:active { transform: scale(0.95); }
+
+        .back-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: white;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transform: scale(0);
+            animation: ripple-anim 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* ========================================
+           RESPONSIVE - TABLET (768px+)
+           ======================================== */
+        @media (min-width: 768px) {
+            .app-wrapper {
+                max-width: 700px;
+                padding: 24px 32px 40px;
+            }
+
+            .app-logo {
+                width: 44px;
+                height: 44px;
+            }
+
+            .app-title h1 { font-size: 16px; }
+            .app-title p { font-size: 11px; }
+
+            .header-badge {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .welcome-banner {
+                padding: 20px 24px;
+                border-radius: 16px;
+            }
+
+            .welcome-text { font-size: 12px; }
+            .welcome-name { font-size: 18px; }
+
+            .banner-logo {
+                width: 56px;
+                height: 56px;
+                border-radius: 14px;
+            }
+
+            .section-title {
+                font-size: 12px;
+                margin-bottom: 14px;
+            }
+
+            .services-grid {
+                gap: 12px;
+            }
+
+            .service-card {
+                padding: 18px;
+                border-radius: 16px;
+                gap: 14px;
+            }
+
+            .service-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+            }
+
+            .service-icon {
+                width: 50px;
+                height: 50px;
+                min-width: 50px;
+                border-radius: 14px;
+            }
+
+            .service-icon svg { width: 24px; height: 24px; }
+
+            .service-name { font-size: 14px; }
+            .service-desc { font-size: 11px; }
+
+            .service-arrow {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+            }
+
+            .service-arrow svg { width: 16px; height: 16px; }
+
+            .stats-row {
+                gap: 12px;
+                padding: 20px 0;
+            }
+
+            .stat-item {
+                padding: 14px 8px;
+                border-radius: 12px;
+            }
+
+            .stat-number { font-size: 20px; }
+            .stat-label { font-size: 9px; }
+
+            .bottom-nav {
+                gap: 4px;
+            }
+
+            .nav-item {
+                padding: 8px 20px;
+            }
+
+            .nav-item svg { width: 22px; height: 22px; }
+            .nav-label { font-size: 10px; }
+        }
+
+        /* ========================================
+           RESPONSIVE - DESKTOP (1024px+)
+           ======================================== */
+        @media (min-width: 1024px) {
+            .app-wrapper {
+                max-width: 900px;
+                padding: 32px 40px 40px;
+            }
+
+            .app-header {
+                padding: 16px 0;
+            }
+
+            .app-logo {
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+            }
+
+            .app-title h1 { font-size: 18px; }
+            .app-title p { font-size: 12px; }
+
+            .header-badge {
+                font-size: 11px;
+                padding: 6px 12px;
+            }
+
+            .welcome-banner {
+                padding: 24px 28px;
+                border-radius: 18px;
+                margin-bottom: 24px;
+            }
+
+            .welcome-text { font-size: 13px; }
+            .welcome-name { font-size: 20px; }
+
+            .banner-logo {
+                width: 64px;
+                height: 64px;
+                border-radius: 16px;
+                padding: 8px;
+            }
+
+            .section-title {
+                font-size: 13px;
+                margin-bottom: 16px;
+                letter-spacing: 1.5px;
+            }
+
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+
+            .service-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px 16px;
+                gap: 12px;
+            }
+
+            .service-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            }
+
+            .service-icon {
+                width: 56px;
+                height: 56px;
+                min-width: 56px;
+            }
+
+            .service-icon svg { width: 28px; height: 28px; }
+
+            .service-name {
+                font-size: 15px;
+                white-space: normal;
+            }
+
+            .service-desc {
+                font-size: 12px;
+                -webkit-line-clamp: 3;
+            }
+
+            .service-arrow {
+                display: none;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+                padding: 28px 0;
+            }
+
+            .stat-item {
+                padding: 18px 12px;
+                border-radius: 14px;
+                transition: transform 0.2s ease;
+            }
+
+            .stat-item:hover {
+                transform: translateY(-3px);
+            }
+
+            .stat-number { font-size: 24px; }
+            .stat-label { font-size: 10px; letter-spacing: 1px; }
+
+            .bottom-nav {
+                max-width: 500px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 16px 16px 0 0;
+                border: 1px solid var(--glass-border);
+                border-bottom: none;
+                gap: 4px;
+            }
+
+            .nav-item {
+                padding: 8px 24px;
+            }
+
+            .nav-item svg { width: 24px; height: 24px; }
+            .nav-label { font-size: 10px; }
+        }
+
+        /* ========================================
+           RESPONSIVE - LARGE DESKTOP (1440px+)
+           ======================================== */
+        @media (min-width: 1440px) {
+            .app-wrapper {
+                max-width: 1100px;
+                padding: 40px 48px 48px;
+            }
+
+            .app-logo {
+                width: 54px;
+                height: 54px;
+            }
+
+            .app-title h1 { font-size: 20px; }
+
+            .welcome-banner {
+                padding: 28px 32px;
+            }
+
+            .welcome-name { font-size: 22px; }
+
+            .banner-logo {
+                width: 72px;
+                height: 72px;
+            }
+
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="main-container" id="menu-view">
-        <header>
-            <img src="logo1.jpg" alt="Office Logo" class="header-logo">
-            <h1>District Transport Officers Office <br>
-            SSSD, Hindupur</h1>
-            <img src="logo2.jpg" alt="Office Logo" class="header-logo">
-        </header>
+    <div class="app-wrapper" id="menu-view">
 
-        <div class="button-container">
-            <a href="https://script.google.com/macros/s/AKfycbzuPxQnFhbAmsADMjrluuJC1zqizt9FIu5TUoS3mgr6vY0ZrRCsPQEJ4Ntt-Lqwpg-i/exec" class="styled-button" onclick="openFullWindow(event, this.href)">
-                AITV Buses Inspection
-            </a>
-
-            <a href="https://script.google.com/macros/s/AKfycbzNQwFLUtskZl2M_tyXoA34PWifvy2-51Z88eDUeW404c6k8vHOiUKU5OkFHLw6h4Xyyg/exec" class="styled-button btn-eib" style="background-color: #fd7e14; color: white;" onclick="openFullWindow(event, this.href)">
-                EIBs Special Inspection
-            </a>
+        <!-- Header -->
+        <div class="app-header">
+            <img src="logo1.jpg" alt="Logo" class="app-logo">
+            <div class="app-title">
+                <h1>Transport Department</h1>
+                <p>Sri Sathya Sai District</p>
+            </div>
+            <div class="header-badge">ACTIVE</div>
         </div>
+
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <div class="banner-content">
+                <p class="welcome-text">Welcome To</p>
+                <p class="welcome-name">DTO's Office, Hindupur</p>
+            </div>
+            <img src="logo2.jpg" alt="Logo" class="banner-logo">
+        </div>
+
+        <!-- Services -->
+        <p class="section-title">Quick Actions</p>
+
+        <div class="services-grid">
+
+            <a href="https://script.google.com/macros/s/AKfycbzuPxQnFhbAmsADMjrluuJC1zqizt9FIu5TUoS3mgr6vY0ZrRCsPQEJ4Ntt-Lqwpg-i/exec" class="service-card" onclick="openFullWindow(event, this.href)">
+                <div class="service-icon green">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 16C4 14.9 4.9 14 6 14H18C19.1 14 20 14.9 20 16V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V16ZM6.5 16C6.22 16 6 16.22 6 16.5V19.5C6 19.78 6.22 20 6.5 20H18C18.28 20 18.5 19.78 18.5 19.5V16.5C18.5 16.22 18.28 16 18 16H6.5ZM11.5 17.5C11.5 18.33 10.83 19 10 19H8C7.17 19 6.5 18.33 6.5 17.5C6.5 16.67 7.17 16 8 16H10C10.83 16 11.5 16.67 11.5 17.5ZM17.5 17.5C17.5 18.33 16.83 19 16 19H14C13.17 19 12.5 18.33 12.5 17.5C12.5 16.67 13.17 16 14 16H16C16.83 16 17.5 16.67 17.5 17.5ZM2 8L4 2H20L22 8H2ZM4.5 12C4.5 10.34 5.84 9 7.5 9H16.5C18.16 9 19.5 10.34 19.5 12V13H4.5V12Z"/></svg>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">AITV Buses Inspection</div>
+                    <div class="service-desc">Safety compliance & regulatory checks</div>
+                </div>
+                <div class="service-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41L13.17 12L8.59 16.59L10 18L16 12L10 6Z"/></svg>
+                </div>
+            </a>
+
+            <a href="https://script.google.com/macros/s/AKfycbzNQwFLUtskZl2M_tyXoA34PWifvy2-51Z88eDUeW404c6k8vHOiUKU5OkFHLw6h4Xyyg/exec" class="service-card" onclick="openFullWindow(event, this.href)">
+                <div class="service-icon orange">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 19.93C13 19.97 12.67 20 12 20C7.03 20 3 15.97 3 11C3 10.33 3.03 10 3.07 10H13V19.93ZM19.43 14C19.43 13.97 18.5 13.5 18.5 13.5C18.5 13.5 17.5 13 17.5 11.5V8C17.5 6.9 16.6 6 15.5 6H8.5C7.4 6 6.5 6.9 6.5 8V11.5C6.5 13 5.5 13.5 5.5 13.5C5.5 13.5 4.57 13.97 4.57 14C4.57 14.03 4.5 14.06 4.5 14.1V16C4.5 17.1 5.4 18 6.5 18H17.5C18.6 18 19.5 17.1 19.5 16V14.1C19.5 14.06 19.43 14.03 19.43 14Z"/></svg>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">EIBs Special Inspection</div>
+                    <div class="service-desc">Electric bus technical & safety standards</div>
+                </div>
+                <div class="service-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41L13.17 12L8.59 16.59L10 18L16 12L10 6Z"/></svg>
+                </div>
+            </a>
+
+            <a href="https://script.google.com/macros/s/AKfycbxVydmS_PM9Cq0Rny-EX9xSGBojHKrqm3BSTyuruOV6PNLq30_HYy3UQHj-wT2P4oPy/exec" class="service-card" onclick="openFullWindow(event, this.href)">
+                <div class="service-icon blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 3H3C1.9 3 1 3.9 1 5V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3ZM21 19H3V5H21V19ZM5 15H19V17H5V15ZM11 7H13V13H11V7ZM7 9H9V13H7V9ZM15 9H17V13H15V9Z"/></svg>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">PUCC Image Update</div>
+                    <div class="service-desc">Pollution certificate image management</div>
+                </div>
+                <div class="service-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41L13.17 12L8.59 16.59L10 18L16 12L10 6Z"/></svg>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Services</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Available</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">AP</div>
+                <div class="stat-label">Region</div>
+            </div>
+        </div>
+
     </div>
 
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav" id="bottomNav">
+        <a href="#" class="nav-item active" onclick="return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item" onclick="return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM7 10H9V17H7V10ZM11 7H13V17H11V7ZM15 13H17V17H15V13Z"/></svg>
+            <span class="nav-label">Records</span>
+        </a>
+        <a href="#" class="nav-item" onclick="return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 19.93V20C13 20.55 12.55 21 12 21C6.48 21 2 16.52 2 11C2 5.48 6.48 1 12 1C17.52 1 22 5.48 22 11C22 11.37 21.97 11.73 21.92 12.09C21.28 11.42 20.37 11 19.36 11C17.38 11 15.78 12.6 15.78 14.58C15.78 16.56 17.38 18.16 19.36 18.16C20.37 18.16 21.28 17.74 21.92 17.07V17.07C21.97 17.43 22 17.79 22 18.16C22 18.71 21.55 19.16 21 19.16H19.36C16.52 19.16 14.16 16.8 14.16 13.96C14.16 11.53 15.87 9.47 18.16 8.97C18.11 8.65 18.08 8.33 18.08 8C18.08 5.24 15.84 3 13.08 3C10.32 3 8.08 5.24 8.08 8C8.08 8.33 8.05 8.65 8 8.97C10.29 9.47 12 11.53 12 13.96C12 16.8 9.64 19.16 6.8 19.16H5C4.45 19.16 4 18.71 4 18.16C4 17.79 4.03 17.43 4.08 17.07C4.72 17.74 5.63 18.16 6.64 18.16C8.62 18.16 10.22 16.56 10.22 14.58C10.22 12.6 8.62 11 6.64 11C5.63 11 4.72 11.42 4.08 12.09C4.03 11.73 4 11.37 4 11C4 5.48 8.48 1 14 1C19.52 1 24 5.48 24 11C24 16.52 19.52 21 14 21C13.45 21 13 20.55 13 20V19.93Z"/></svg>
+            <span class="nav-label">Track</span>
+        </a>
+        <a href="#" class="nav-item" onclick="return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12C13.1 12 14 11.1 14 10C14 8.9 13.1 8 12 8C10.9 8 10 8.9 10 10C10 11.1 10.9 12 12 12ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C8.24 20 5 16.76 5 12C5 7.24 8.24 4 12 4C15.76 4 19 7.24 19 12C19 16.76 15.76 20 12 20Z"/></svg>
+            <span class="nav-label">Profile</span>
+        </a>
+    </div>
+
+    <!-- Iframe View -->
     <div class="full-screen-iframe-wrapper" id="iframe-view">
-        <a href="#" class="back-btn" onclick="closeFullWindow(event)">← Back to Menu</a>
+        <a href="#" class="back-btn" onclick="closeFullWindow(event)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Back
+        </a>
         <iframe id="target-frame" src="" title="Inspection Form"></iframe>
     </div>
 
     <script>
         function openFullWindow(event, url) {
-            event.preventDefault(); // Stop the browser from navigating away
-            
-            document.getElementById('target-frame').src = url; // Set source to iframe
-            document.getElementById('menu-view').style.display = 'none'; // Hide buttons
-            document.getElementById('iframe-view').style.display = 'block'; // Show full screen frame
+            event.preventDefault();
+            document.getElementById('target-frame').src = url;
+            document.getElementById('menu-view').style.display = 'none';
+            document.getElementById('bottomNav').style.display = 'none';
+            document.getElementById('iframe-view').style.display = 'block';
         }
 
         function closeFullWindow(event) {
             event.preventDefault();
-            document.getElementById('target-frame').src = ''; // Clear frame
-            document.getElementById('iframe-view').style.display = 'none'; // Hide frame
-            document.getElementById('menu-view').style.display = 'flex'; // Show buttons again
+            document.getElementById('target-frame').src = '';
+            document.getElementById('iframe-view').style.display = 'none';
+            document.getElementById('menu-view').style.display = 'block';
+            document.getElementById('bottomNav').style.display = 'flex';
         }
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = this.getBoundingClientRect();
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
     </script>
 
 </body>
