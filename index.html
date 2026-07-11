@@ -33,6 +33,8 @@
             color: var(--text-primary);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         /* === MAIN APP === */
@@ -821,6 +823,10 @@
     </div>
 
     <script>
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+        document.addEventListener('copy', function(e) { e.preventDefault(); });
+
         function openFullWindow(event, url) {
             event.preventDefault();
             document.getElementById('iframeLoader').style.display = 'flex';
